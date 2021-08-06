@@ -103,6 +103,7 @@ local function get_vec_mask(vals, mask_register)
 end
 
 local function get_var_name(register, swizzle, sep_suffix)
+    --print(register.name)
     local name = register.name
     local bind_data = bind_map[name]
     local reg_com = register.suffix

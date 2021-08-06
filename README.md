@@ -5,6 +5,17 @@
 
 **[usage]**
 
+	问题：
+	.\lua\lua.exe dxbc_reader.lua example/CloudV.txt -o dxbc.out   ===》 报错 
+	{
+	.\lua\lua.exe: .\dxbc_def.lua:106: attempt to index a nil value (local 'register')
+	stack traceback:
+        .\dxbc_def.lua:106: in upvalue 'get_var_name'
+        .\dxbc_def.lua:286: in local 'op_func'
+        dxbc_reader.lua:173: in main chunk
+        [C]: in ?
+	}
+
     .\lua\lua.exe dxbc_reader.lua example/fragment.txt -o dxbc.out
 
     -o output [output filename]

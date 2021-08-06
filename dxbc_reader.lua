@@ -41,7 +41,7 @@ local parse_data = parser(str)
 
 dxbc_def:init(parse_data)
 
---print(DataDump(parse_data))
+print(DataDump(parse_data))
 
 local function get_op(op)
     if not op then return end
