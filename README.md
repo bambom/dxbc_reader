@@ -4,7 +4,7 @@
     easy to use & easy to read
 
 **[usage]**
-
+	.\lua\lua.exe dxbc_reader.lua example/SkyBoxF.txt -o dxbc.out
 	问题：
 	.\lua\lua.exe dxbc_reader.lua example/CloudV.txt -o dxbc.out   ===》 报错 
 	{

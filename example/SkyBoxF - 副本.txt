@@ -27,7 +27,7 @@ log r1.x, r1.x
 dp3 r1.y, r0.xyzx, cb0[4].xyzx
 dp3_sat r0.x, cb0[19].xyzx, r0.xyzx
 add r0.x, r0.x, l(-1.0000)
-mul r0.y, r1.y, cb0[17].w
+mul r0.y, abs(r1.y), cb0[17].w
 mul r0.z, r1.x, r0.y
 mul r1.yz, r0.yyyy, l(0.0000, 0.1000, 0.0100, 0.0000)
 mul r1.xy, r1.xxxx, r1.yzyy
@@ -52,7 +52,7 @@ mul r0.x, r0.x, r0.x
 mul r1.x, r0.x, r0.x
 mul r0.x, r0.x, r1.x
 add r1.x, cb0[21].y, l(-0.5000)
-mad r1.x, r1.x, l(2.0000), l(1.0000)
+mad r1.x, -abs(r1.x), l(2.0000), l(1.0000)
 mul r1.x, r1.x, cb0[21].x
 mul r0.x, r0.x, r1.x
 mul r1.xyz, r0.xxxx, cb0[20].xyzx
