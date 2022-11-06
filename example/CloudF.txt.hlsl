@@ -9,8 +9,8 @@ class INPUT {
 	float3 v9:TEXCOORD7;
 }
 
-sampler2D t0;
-sampler2D t1;
+sampler2D Enviro_clouds_Curl;
+sampler2D Enviro_clouds_Altas;
 
 class OUT {
 }
@@ -27,11 +27,11 @@ void main(INPUT in) {
         r0.w = max(r0.w, 0);
         r0.yz = -r0.ww + r0.yz;
         r0.yz = float2(1.0, 1.0)/r0.yz;
-        r1.xyz = tex2D(t0, v2.zw).xyz //sample_state s1;
+        r1.xyz = tex2D(Enviro_clouds_Curl, v2.zw).xyz //sample_state s1;
         r1.xy = r1.xy + float2(-0.5, -0.5);
         r1.xy = r1.zz * r1.xy;
         r1.xy = r1.xy*cb0[36].yy + v2.xy;
-        r1.xyzw = tex2D(t1, r1.xy).xyzw //sample_state s0;
+        r1.xyzw = tex2D(Enviro_clouds_Altas, r1.xy).xyzw //sample_state s0;
         r0.w = -r0.w + r1.z;
         r0.yz = saturate(r0.yz * r0.ww);
         r2.xy = r0.yz*float2(-2.0, -2.0) + float2(3.0, 3.0);

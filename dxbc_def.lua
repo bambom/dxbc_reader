@@ -279,12 +279,29 @@ m.shader_def = {
         return _format('%s = tex2D(%s, %s.%s).%s //ld_indexable',
                     n_dest, n_texture, n_addr, com_addr:sub(1, 2), com_texture)
     end,
-
+-- 解析器解析的有问题 mad 文本正确 只解析出来了 2个参数
     ['[ui]?mad(.*)'] = function(op_args, a, b, c, d)
-        local namea = get_var_name(a)
-        local nameb = get_var_name(b, a)
-        local namec = get_var_name(c, a)
-        local named = get_var_name(d, a)
+	--先直接判空
+		local namea = "mad"
+		local nameb = "b-Error"
+		local namec = "c-Error"
+		local named = "d-Error"
+		if a then
+			namea = get_var_name(a)
+		end
+		if b and a then
+			namea = get_var_name(b, a)
+		end
+		if c and a then
+			namea = get_var_name(c, a)
+		end
+		if d and a then
+			namea = get_var_name(d, a)
+		end
+        --local namea = get_var_name(a)
+        --local nameb = get_var_name(b, a)
+        --local namec = get_var_name(c, a)
+        --local named = get_var_name(d, a)
         local ret
         if named:sub(1,1) == '-' then
             ret = _format('%s%s', namec, named)
