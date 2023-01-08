@@ -33,19 +33,22 @@ void main(INPUT in) {
         r1.xyz = cb3[17].xywx * r0.xxxx + r1.xyzx;
         r1.xyz = cb3[19].xywx*r0.zzzz + r1.xyzx;
         r1.xyz = cb3[20].xywx*r0.wwww + r1.xyzx;  //17-20  unity_MatrixVP ，   r1 =  OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+		//r1 顶点在灯光空间的 位置
+
+        //viewDir 
+        r0.xyz = r0.xyz - cb0[3].xyz; //  cb0[3] [2183,195,-1037,0]  相机位置或者灯光位置？
 		
-        //viewdir
-        r0.xyz = r0.xyz-cb0[3].xyz; //  cb0[3] [2183,195,-1037,0]   相机位置或者灯光位置？
-		
+        // 等于是默认一个 裁剪空间
         posHClip.xyw = r1.xyz;  //posHClip 齐次裁剪空间 w = -z
         posHClip.z = 0;           // 但是？
 		
+        
         r2.xyz = r1.xyz * float3(0.5, 0.5, 0.5);
 		
         o1.w = r1.z;
         r2.w = r2.y * cb1[6].x; // cb1_v6 cb1[6].xyzw float4 -1.00, 0.25, 6000.68506, 0.00017
         o1.xy = r2.zz + r2.xw;
-        o1.z = 0;			// o1 好像也没用到
+        o1.z = 0;			    // o1 好像也没用到
 		
 		// cb0[35]  : x - 0 , y - 0 , z - 2 , w - _FixedSpriteId 4 .
 		// cb0[36]  : x - 3 - _CloudCurTiling  , y -0.0123 -  _CloudCurAmplitude , z - 6 - _CloudCurSpeed , w - 0 ? 

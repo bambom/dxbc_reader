@@ -34,13 +34,17 @@ void main(INPUT in) {
         r1.xyz = cb3[19].xywx*r0.zzzz + r1.xyzx;
         r1.xyz = cb3[20].xywx*r0.wwww + r1.xyzx;  //17-20  unity_MatrixVP ，   r1 =  OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
 		
+        // r1 如果是 转
+
+        float4 hClip = r1;
+        float3 posWorld = r0.xyz;
         //viewdir
-        r0.xyz = r0.xyz-cb0[3].xyz; //  cb0[3] [2183,195,-1037,0]   相机位置或者灯光位置？
+        float viewDir = posWorld  - cameraWorldPos; //  cb0[3] [2183,195,-1037,0]   相机位置或者灯光位置？
 		
-        posHClip.xyw = r1.xyz;  //posHClip 齐次裁剪空间 w = -z
+        posHClip.xyw = hClip.xyz;  //posHClip 齐次裁剪空间 w = -z
         posHClip.z = 0;           // 但是？
 		
-        r2.xyz = r1.xyz * float3(0.5, 0.5, 0.5);
+        r2.xyz = hClip.xyz * float3(0.5, 0.5, 0.5);
 		
         o1.w = r1.z;
         r2.w = r2.y * cb1[6].x; // cb1_v6 cb1[6].xyzw float4 -1.00, 0.25, 6000.68506, 0.00017
