@@ -136,18 +136,18 @@ void main(INPUT in) {
         r1.z = r1.z * cb0[27].w;
       
         r1.y = saturate(r1.y * r1.w);
-      
-        r1.w = r1.y*-2.0000+ 3.0;
-        r1.y = r1.y * r1.y;
-        r1.y = -r1.w*r1.y + 1.0000;
+        //r1.w = r1.y*-2.0000+ 3.0;
+        //r1.y = r1.y * r1.y;
+        r1.y = -r1.w*r1.y + 1.0000;   // = -(r1.y*-2.0000+ 3.0) * r1.y * r1.y + 1.0000;
+		
         r1.w = 1.0/UV1.z;
      
         r1.z = saturate(r1.w * r1.z);
         r1.w = r1.z*(-2.0000) + 3.0;
         r1.z = r1.z * r1.z;
-        
         r1.z = r1.z * r1.w;
         o4.w = -r1.z*r1.y + 1.0;
+		
         r1.y = dot(r0.xyzx, cb0[15].yzwy);
         r0.x = dot(r0.xyzx, cb0[19].xyzx);
         r0.y =r1.y * 0.5 + 0.5;
