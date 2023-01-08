@@ -123,60 +123,32 @@ void main(INPUT in) {
         o3.xyzw = r0.xyzw;// 就是标准方向 ，加一个角度值
       
 		
-	    //UV1  89 ,30 , 0.4, 0.6 ,, 
-		//smoothstep
+	    //UV1  89 ,30 , 0.4, 0.6 ,, 消融信息？
+        r1.y = -UV1.w + 1.0;
+        r1.y = 1.0/r1.y;
+        r1.z = max(UV1.x, 0.0);
+        r1.z = UV1.y/r1.z;
+        r1.w = r1.z*cb0[27].w -UV1.w;
+        r1.z = r1.z * cb0[27].w;
+      
+        r1.y = saturate(r1.y * r1.w);
+      
+        r1.w = r1.y*-2.0000+ 3.0;
+        r1.y = r1.y * r1.y;
 		
-		//r1.y = smoothstep(UV1.w, 1.0, UV1.y / max(UV1.x, 0.0) * cb0[27].w);
-	// 已知cb0[27].w实际值为1.0
-	// 已知UV1.x实际值总大于零
-	// 故原smoothstep可简化为
-		// r1.y = smoothstep(UV1.w, 1.0, UV1.y / UV1.x);
-		{
-			r1.y = 1.0 - UV1.w;
-			
-			r1.y = 1.0/r1.y;
-			
-			r1.z = max(UV1.x, 0.0);
-			r1.z = UV1.y/r1.z;
-			r1.w = r1.z*cb0[27].w -UV1.w;
-			
-			r1.y = saturate(r1.y * r1.w);
-			r1.w = r1.y*-2.0000+ 3.0;
-			r1.y = r1.y * r1.y;
-			r1.y = r1.y * r1.w;
-		}
-		
-		// r1.z = smootstep(0.0, UV1.z, UV1.y / UV1.x)
-	// 已知cb0[27].w实际值为1.0
-	// 故原smoothstep可简化为
-		// r1.z = smootstep(0.0, UV1.z, UV1.y / UV1.x)
-		{
-			r1.z = r1.z * cb0[27].w;
-		  
-			r1.w = 1.0/UV1.z;
-			r1.z = saturate(r1.w * r1.z);
-			r1.w = r1.z*(-2.0000) + 3.0;
-			r1.z = r1.z * r1.z;
-			r1.z = r1.z * r1.w;
-        }
-		
-		// 执行到这里时，有：
-		// r1.y = smoothstep(UV1.w, 1.0, UV1.y / UV1.x);
-		// ri.z = smoothstep(0.0, UV1.z, UV1.y / UV1.x);
-		// 于是可知：
-		// UV1.zw = smoothstep的平滑参数
-		// 根据zw两个参数分别在smoothstep中的位置，
-		// 推测两个smoothstep操作的意义为高通和低通函数，
-		// 推测xy两个参数为tangent分量。
-		
-		r1.y = 1.0000 - r1.y;
-		
-		o4.w = -r1.z*r1.y + 1.0;
+        r1.y = -r1.w*r1.y + 1.0000;
+        r1.w = 1.0/UV1.z;
+     
+        r1.z = saturate(r1.w * r1.z);
+        r1.w = r1.z*(-2.0000) + 3.0;
+        r1.z = r1.z * r1.z;
+        
+        r1.z = r1.z * r1.w;
+        o4.w = -r1.z*r1.y + 1.0;
         r1.y = dot(r0.xyzx, cb0[15].yzwy);
         r0.x = dot(r0.xyzx, cb0[19].xyzx);
         r0.y =r1.y * 0.5 + 0.5;
         o4.x = r0.y * cb0[28].w;
-		
         o4.yz = vcolor.zw; // 顶点色的 zw . y是图集信息
         r0.z = r1.y*cb0[10].w -cb0[10].w;
         r1.y = r1.y*cb0[26].w -cb0[26].w;

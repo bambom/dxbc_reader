@@ -22,39 +22,25 @@ class OUT {
 }
 
 void main(INPUT in) {
+        r0.x = v3.w + 0.1;
+        r0.x = saturate(r0.x * 5.0);  
+        r0.y = r0.x*-2.0 + 3.0;
+        r0.x = r0.x * r0.x;
+        r0.x = r0.x * r0.y;
 		
-		// r0.x = smoothstep(0.0, 0.2, v3.w + 0.1) 
-		{
-			r0.x = v3.w + 0.1;
-			r0.x = saturate(5.0 * r0.x);  
-			r0.y = r0.x*-2.0 + 3.0;
-			r0.x = r0.x * r0.x;
-			r0.x = r0.x * r0.y;
-		}
+        r0.yz = v4.yz + v4.ww;
 		
-		// r0.yz = min(v4.ww + v4.yz, float2(1.0, 1.0));
-		// r0.w = max(v4.w - v4.y, 0);
-		// r0.yz = r0.yz - r0.ww;
+        r0.yz = min(r0.yz, float2(1.0, 1.0));
+        r0.w = -v4.y + v4.w;
+        r0.w = max(r0.w, 0);
 		
-		// ==> r0.yz = min(v4.ww + v4.yz, 1.0) - max(v4.w - v4.y, 0)
-		// ==> r0.y = min(v4.w + v4.y, 1.0) - max(v4.w - v4.y, 0)
-		// ==> r0.z = min(v4.w + v4.z, 1.0) - max(v4.w - v4.y, 0)
-		{
-			r0.yz = v4.yz + v4.ww;
-			r0.yz = min(r0.yz, float2(1.0, 1.0));
-			r0.w = -v4.y + v4.w;
-			r0.w = max(r0.w, 0);
-			r0.yz = -r0.ww + r0.yz;
-		}
-		
-		r0.yz = float2(1.0, 1.0)/r0.yz;
-			
+        r0.yz = -r0.ww + r0.yz;
+        r0.yz = float2(1.0, 1.0)/r0.yz;
         r1.xyz = tex2D(Enviro_clouds_Curl, cloudUV.zw).xyz //sample_state s1;
         r1.xy = r1.xy + float2(-0.5, -0.5);
         r1.xy = r1.zz * r1.xy;
         r1.xy = r1.xy*_CloudCurAmplitude.xx + cloudUV.xy;
         r1.xyzw = tex2D(Enviro_clouds_Altas, r1.xy).xyzw //sample_state s0;
-	
 	//SDF 消融
         r0.w = -r0.w + r1.z;  // z sdf
         r0.yz = saturate(r0.yz * r0.ww);

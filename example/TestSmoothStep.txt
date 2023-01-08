@@ -1,0 +1,12 @@
+vs_4_0
+dcl_constantbuffer CB0[3], immediateIndexed
+dcl_output_siv o0.xyzw, position
+dcl_temps 1
+add r0.xy, -cb0[2].xxxx, cb0[2].yzyy
+div r0.x, l(1.000000, 1.000000, 1.000000, 1.000000), r0.x
+mul_sat r0.x, r0.x, r0.y
+mad r0.y, r0.x, l(-2.000000), l(3.000000)
+mul r0.x, r0.x, r0.x
+mul o0.x, r0.x, r0.y
+mov o0.yzw, l(0,10.000000,10.000000,10.000000)
+ret 

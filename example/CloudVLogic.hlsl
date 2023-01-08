@@ -129,6 +129,7 @@ void main(INPUT in) {
 		
 	    //UV1  89 ,30 , 0.4, 0.6 ,, 消融信息？
         r1.y = -UV1.w + 1.0;
+		
         r1.y = 1.0/r1.y;
         r1.z = max(UV1.x, 0.0);
         r1.z = UV1.y/r1.z;
