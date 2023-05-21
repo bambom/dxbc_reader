@@ -272,7 +272,7 @@ void main(INPUT in) {
         r0.z = r0.z * r0.w;
         r0.z = r0.z * cb0[21].x;
         r0.w = cb0[21].y-0.5;
-        r0.w =  -r0.w*2.0 + 1.0;
+        r0.w =  -r0.w*2.0 + 1.0; // r0w = 1-(cb0[21].y - 0.5)* 2
        
         r0.z = r0.w * r0.z;
         r1.xzw = r0.zzz * cb0[20].xyz;
