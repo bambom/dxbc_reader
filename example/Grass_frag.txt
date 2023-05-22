@@ -7,7 +7,7 @@ if_nz r0.y
   mad r0.y, cb1[8].z, r0.y, cb1[8].w
   div r0.y, l(1.0000, 1.0000, 1.0000, 1.0000), r0.y
   add r0.y, r0.y, -v5.w
-  mul_sat r0.y, r0.y, cb0[21].w
+  mul_sat r0.y, abs(r0.y), cb0[21].w
   sqrt r0.y, r0.y
 else
   mov r0.y, l(1.0000)
@@ -28,11 +28,12 @@ mul r0.w, r0.w, cb0[13].y
 mul r1.x, v2.w, l(128.0000)
 mad r1.y, v2.z, l(0.5000), l(0.5000)
 mad r1.x, v4.x, l(127.0000), r1.x
-
+ftou r1.x, r1.x
+utof r1.x, r1.x
 mul o1.w, r1.x, l(0.0039)
-max r1.x,r0.x, r0.z
-max r1.x, r0.y, r1.x
-eq r1.xz, r0.zzyz, r1.xxxx
+max r1.x, abs(r0.x), abs(r0.z)
+max r1.x, abs(r0.y), r1.x
+eq r1.xz, abs(r0.zzyz), r1.xxxx
 and r2.x, r1.x, l(0.5000)
 movc r2.y, r1.z, l(0), l(0.5000)
 movc r3.xyz, r1.zzzz, r0.zxyz, r0.zyxz

@@ -122,8 +122,8 @@ mul r6.xz, r2.zzwz, l(0.2000, 0.0000, 0.2000, 0.0000)
 add r2.z, r2.y, l(-0.5000)
 mul r2.y, r2.y, cb0[10].x
 sincos r2.y, null, r2.y
-ubfe r5.yzw, l(0, 2, 8, 8), l(0, 24, 16, 8), cb4[r0.w + 2].wwww
-utof r5.yzw, r5.yyzw
+
+
 mad r2.z, r2.z, cb0[6].y, r5.y
 mul r7.xy, r5.zwzz, l(0.0039, 0.0039, 0.0000, 0.0000)
 mad r2.z, r2.z, cb0[6].w, cb0[6].z
@@ -146,9 +146,8 @@ add r4.xyz, r4.xwzx, r9.xyzx
 and r1.x, l(255), cb4[r0.w + 1].w
 utof r1.x, r1.x
 add r9.z, r1.x, l(-127.0000)
-ubfe r1.xw, l(8, 0, 0, 8), l(8, 0, 0, 16), cb4[r0.w + 1].wwww
-utof r1.x, r1.x
-utof o2.w, r1.w
+
+
 add r9.x, r1.x, l(-127.0000)
 mul r1.xw, r9.xxxz, l(0.0079, 0.0000, 0.0000, 0.0079)
 mul r1.xw, r1.xxxw, r1.xxxw
@@ -215,16 +214,16 @@ iadd r1.x, -r1.y, r1.x
 itof r1.x, r1.x
 mul o2.xyz, r0.xyzx, r1.xxxx
 and r0.x, l(255), cb4[r0.w + 2].w
-utof r0.x, r0.x
+
 mul r7.z, r0.x, l(0.0039)
-ubfe r0.xy, l(8, 8, 0, 0), l(16, 8, 0, 0), cb4[r0.w + 3].wwww
-utof r0.xy, r0.xyxx
+
+
 mul r0.xy, r0.xyxx, l(0.0039, 0.0039, 0.0000, 0.0000)
 and r1.x, l(255), cb4[r0.w + 3].w
 max r0.w, l(1.0000), cb4[r0.w + 0].w
 min r0.w, r0.w, l(2.0000)
 add r0.w, r0.w, l(-1.0000)
-utof r1.x, r1.x
+
 mul r0.z, r1.x, l(0.0039)
 add r1.xyz, -r0.xyzx, r7.xyzx
 div r1.w, r8.x, cb0[33].y
